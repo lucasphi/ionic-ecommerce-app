@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 // Category Interface
 export interface ICategory {
@@ -19,6 +20,8 @@ export interface IProduct {
   providedIn: 'root'
 })
 export class DataService {
+
+  private shoppingCart$: Observable<Array<IProduct>>;
 
   constructor() { }
 
@@ -98,5 +101,9 @@ export class DataService {
     products.push(prod1, prod2, prod3);
 
     return products;
+  }  
+
+  get shoppingCart(): Observable<Array<IProduct>> {
+    return this.shoppingCart$;
   }
 }
