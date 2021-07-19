@@ -17,7 +17,7 @@ import { TopMenuComponent } from 'src/components/top-menu/top-menu.component';
     HomePageRoutingModule
   ],
   declarations: [
-    HomePage, 
+    HomePage,
     TopMenuComponent
   ],
 })

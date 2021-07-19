@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Animation, AnimationController } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-item-details',
@@ -13,6 +14,7 @@ export class ItemDetailsPage implements OnInit {
 
   constructor(
     private animatioCntrl: AnimationController,
+    private dataService: DataService,
   ) { }
 
   ngOnInit() {
@@ -65,4 +67,12 @@ export class ItemDetailsPage implements OnInit {
     this.selectedColor = color;
   }
 
+  addToCart(): void {
+    this.dataService.addProductToCart({
+      id: 1,
+      name: 'Womens T-Shirt',
+      price: 40,
+      image: '../../assets/products/prod-6.png'
+    });
+  }
 }

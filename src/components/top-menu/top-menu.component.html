@@ -6,8 +6,11 @@
   <ion-button class="header-menu">
     <ion-icon name="funnel-outline" color="dark"></ion-icon>
   </ion-button>
-  <ion-button class="header-menu cart">
+  <ion-button class="header-menu" *ngIf="allowSearch">
+    <ion-icon name="search-outline" color="dark"></ion-icon>
+  </ion-button>
+  <ion-button class="header-menu cart" (click)="openCart()">
     <ion-icon name="bag-outline" color="dark"></ion-icon>
-    <ion-label class="badge" color="dark">{{ shoppingCartCount }}</ion-label>
+    <ion-label class="badge" color="dark">{{ shoppingCartCount | async }}</ion-label>
   </ion-button>
 </ion-buttons>

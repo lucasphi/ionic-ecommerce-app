@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { map, Observable, take } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -8,12 +10,23 @@ import { DataService } from 'src/app/data.service';
 })
 export class TopMenuComponent implements OnInit {
 
-  get shoppingCartCount(): number {
-    return 0;
+  @Input() allowSearch = true;
+
+  get shoppingCartCount(): Observable<any> {
+    return this.dataService.shoppingCart.pipe(
+      take(1),
+      map(a => a.length)
+    );
   }
 
-  constructor(dataService: DataService) { }
+  constructor(
+    private router: Router,
+    private dataService: DataService) { }
 
   ngOnInit() {}
+
+  openCart(): void {
+    this.router.navigate(['/my-cart']);
+  }
 
 }

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ItemDetailsPageRoutingModule } from './item-details-routing.module';
 
 import { ItemDetailsPage } from './item-details.page';
+import { TopMenuComponent } from 'src/components/top-menu/top-menu.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ItemDetailsPage } from './item-details.page';
     IonicModule,
     ItemDetailsPageRoutingModule
   ],
-  declarations: [ItemDetailsPage]
+  declarations: [ItemDetailsPage, TopMenuComponent]
 })
 export class ItemDetailsPageModule {}

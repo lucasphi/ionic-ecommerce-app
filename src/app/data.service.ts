@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 // Category Interface
 export interface ICategory {
@@ -16,12 +16,19 @@ export interface IProduct {
   image: string,
 }
 
+// Cart Product Interface
+export interface ICartProduct extends IProduct {
+  amount: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private shoppingCart$: Observable<Array<IProduct>>;
+  private shoppingCartList: ICartProduct[] = [];
+  private shoppingCart$: BehaviorSubject<ICartProduct[]> =
+    new BehaviorSubject<ICartProduct[]>(this.shoppingCartList);
 
   constructor() { }
 
@@ -103,7 +110,28 @@ export class DataService {
     return products;
   }  
 
-  get shoppingCart(): Observable<Array<IProduct>> {
-    return this.shoppingCart$;
+  get shoppingCart(): Observable<ICartProduct[]> {
+    return this.shoppingCart$.asObservable();
+  }
+
+  addProductToCart(product: IProduct, amount: number = 1): void {
+    const cartProduct = this.shoppingCartList.find(listProduct => product.id === listProduct.id);
+    if (cartProduct === undefined) {
+      const newCartProduct = product as ICartProduct;
+      newCartProduct.amount = amount;
+      this.shoppingCartList.push(newCartProduct);
+    } else {
+      cartProduct.amount += amount;
+    }
+    this.shoppingCart$.next(this.shoppingCartList);
+  }
+
+  removeProductFromCart(product: IProduct): void {
+    this.shoppingCartList.forEach((listProduct, index) => {
+      if (listProduct.id === product.id) {
+          this.shoppingCartList.splice(index, 1);
+          return false;
+      }
+  });
   }
 }
