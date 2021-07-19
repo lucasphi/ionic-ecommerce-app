@@ -132,6 +132,6 @@ export class DataService {
           this.shoppingCartList.splice(index, 1);
           return false;
       }
-  });
+    });
   }
 }
